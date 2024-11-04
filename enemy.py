@@ -18,3 +18,4 @@ class Enemy:
             self.x -= 25
         if (xen < xpy):
             self.x += 25
+
