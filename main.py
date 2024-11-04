@@ -43,6 +43,7 @@ def draw_health_bar(screen, x, y, health, max_health):
     pygame.draw.rect(screen, (255, 0, 0), fill_rect)
     pygame.draw.rect(screen, (0, 0, 0), outline_rect, 2)
 
+clock = pygame.time.Clock()
 while True:
     # Control frame rate
     pygame.time.delay(5)
@@ -82,8 +83,10 @@ while True:
     # Update scroll based on player position change
     dx = player.x - previous_x  # Difference in player position
     scroll -= dx  # Adjust scroll based on this difference
-
+    scroll = scroll % bg_width
     # Add cooldown to jump
+    if player.x > SCREEN_WIDTH:
+        player.x = 0;
     current_time = time.time()
     # Check for key presses to make the player jump
     if not player.is_jump and keys[K_UP] and (current_time - player.last_time) > 1:
