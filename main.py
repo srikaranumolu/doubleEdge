@@ -28,7 +28,7 @@ width = 300
 height = 300
 # Make the player and enemy
 player = Player("player.png", 164, 558, width, height)
-enemy = Enemy("enemy.png", 0, 558, 250, 250)
+enemy = Enemy("enemy.png", SCREEN_WIDTH, 558, 250, 250)
 
 # Start the game loop
 while True:
@@ -42,7 +42,8 @@ while True:
 
     # Add the player and enemy onto the screen
     player.draw(screen)
-    enemy.draw(screen)
+    if(player.BroadCastKill == False):
+        enemy.draw(screen)
 
     # Check for events to see if the player wants to quit
     for event in pygame.event.get():
@@ -90,8 +91,8 @@ while True:
     # Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x)
 
-    if (abs(player.x - enemy.x) < 14):
-        if (abs(player.y - enemy.y) < 14):
+    if (abs(player.x - enemy.x) < 20):
+        if (abs(player.y - enemy.y) < 20):
             player.health -= 10
             if (enemy.x < 200):
                 player.x = SCREEN_WIDTH
@@ -105,6 +106,6 @@ while True:
 
     # Update the display
     if keys[K_SPACE]:
-        player.kill(player.x,player.y,screen)
+        player.kill(player.x+150,player.y+120,screen,enemy.x,enemy.y)
 
     pygame.display.update()
