@@ -62,6 +62,7 @@ while True:
 
     #Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x)
+    enemy.backOnScreen(screen,enemy.x)
     #Control frame rate
     pygame.time.delay(5)
     #Update the display
