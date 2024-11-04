@@ -1,6 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
+from time import sleep
 
 pygame.init()
 
@@ -14,9 +15,13 @@ class Player:
         self.image = pygame.transform.scale(self.image, (width, height))
         self.x = x
         self.y = y
+        self.velocity_y = 0
+        self.is_jumping = False
+
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
+
 
 player = Player("player.png", 100, 100, 50, 50)
 
@@ -26,7 +31,15 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
+            if event.key == K_LEFT:
+                player.x -= 15
+            elif event.key == K_RIGHT:
+                player.x += 15
+            elif event.key == K_UP:
+                player.y += 15
+            elif event.key == K_DOWN:
+                player.y += 15
+            elif event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
 
