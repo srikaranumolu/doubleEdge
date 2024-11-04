@@ -61,7 +61,7 @@ while True:
 
 
     # Draw the health bar
-    draw_health_bar(screen,  20, 830, player.health, 90)
+    draw_health_bar(screen,  20, 830, player.health, 100)
 
     # Check for events to see if the player wants to quit
     for event in pygame.event.get():
