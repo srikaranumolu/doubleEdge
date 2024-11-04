@@ -34,6 +34,10 @@ enemy = Enemy("enemy.png", SCREEN_WIDTH, 558, 250, 250)
 # Variable to control jump height
 jump_height = 8
 
+#control kill time
+kill_cooldown = 2
+last_kill_time = 0
+
 def draw_health_bar(screen, x, y, health, max_health):
     bar_width = 200
     bar_height = 20
@@ -58,8 +62,6 @@ while True:
     if(player.BroadCastKill == True):
         enemy.speed +=2
     enemy.draw(screen)
-
-
 
     # Draw the health bar
     draw_health_bar(screen,  20, 830, player.health, 100)
@@ -87,11 +89,12 @@ while True:
     dx = player.x - previous_x  # Difference in player position
     scroll -= dx  # Adjust scroll based on this difference
     scroll = scroll % bg_width
+
     # Add cooldown to jump
     if player.x > SCREEN_WIDTH:
-        player.x = 0;
+        player.x = 0
     elif player.x < 0:
-        player.x = 0;
+        player.x = 0
     current_time = time.time()
     # Check for key presses to make the player jump
     if not player.is_jump and keys[K_UP] and (current_time - player.last_time) > 1:
@@ -137,7 +140,8 @@ while True:
         quit()
 
     # Update the display
-    if keys[K_SPACE]:
+    if keys[K_SPACE] and (current_time - last_kill_time) > kill_cooldown:
         player.kill(player.x+150,player.y+120,screen,enemy.x,enemy.y)
+        last_kill_time = current_time
 
     pygame.display.update()

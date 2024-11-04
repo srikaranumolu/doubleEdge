@@ -22,5 +22,5 @@ class Player:
         if(abs(x -enx) < 30 or abs(y -eny) < 30):
             self.BroadCastKill = True
             self.health -= 5
-            pygame.time.delay(200)
+
 
