@@ -1,6 +1,7 @@
 import pygame
 import math
-
+from player import Player
+from enemy import Enemy
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -21,10 +22,6 @@ bg_height = bg.get_height()
 scroll = 0
 tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
 
-# Define player variables
-player_pos = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 70)
-player_speed = 5
-player_start_x = player_pos.x  # Initial player position
 
 # Game loop
 run = True
@@ -33,10 +30,10 @@ while run:
 
     # Update player position based on key presses
     keys = pygame.key.get_pressed()
-    previous_x = player.x  # Store the player's previous x position
+    previous_x = Player.x  # Store the player's previous x position
 
     # Update scroll based on player position change
-    dx = player.x - previous_x  # Difference in player position
+    dx = Player.x - previous_x  # Difference in player position
     scroll -= dx  # Adjust scroll based on this difference
 
     # Ensure infinite scrolling effect
@@ -47,7 +44,7 @@ while run:
         screen.blit(bg, (i * bg_width + scroll, 0))
 
     # Draw player (for simplicity, a rectangle representing the player)
-    pygame.draw.rect(screen, (0, 255, 0), (SCREEN_WIDTH / 2, player.y, 50, 50))
+    pygame.draw.rect(screen, (0, 255, 0), (SCREEN_WIDTH / 2, Player.y, 50, 50))
 
     # Event handler
     for event in pygame.event.get():
