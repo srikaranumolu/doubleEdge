@@ -18,12 +18,11 @@ class Enemy:
             self.x -= 1
         if (xen < xpy):
             self.x += 1
+        if(xen == xpy):
+            print("hi")
+    def backOnScreen(self,screen,x,y):
+        if(x < 0):
+            self.x = 0
 
-    def collision(self, player):
-        if (self.x < player.x + player.image.get_width() and
-            self.x + self.image.get_width() > player.x and
-            self.y < player.y + player.image.get_height() and
-            self.y + self.image.get_height() > player.y):
-            return True
 
 
