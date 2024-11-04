@@ -90,6 +90,8 @@ while True:
     # Add cooldown to jump
     if player.x > SCREEN_WIDTH:
         player.x = 0;
+    elif player.x < 0:
+        player.x = 0;
     current_time = time.time()
     # Check for key presses to make the player jump
     if not player.is_jump and keys[K_UP] and (current_time - player.last_time) > 1:
