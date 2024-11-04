@@ -10,7 +10,7 @@ class Player:
         self.velocity_y = 6
         self.is_jump = False
         self.mass = 1
-        self.last_time = 0
+        self.last_time = 1
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
