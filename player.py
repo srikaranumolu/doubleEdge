@@ -11,7 +11,7 @@ class Player:
         self.is_jump = False
         self.mass = 1
         self.last_time = 0
-
+        self.health = 100
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 

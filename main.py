@@ -8,6 +8,8 @@ from enemy import Enemy
 
 # Initialize Pygame
 pygame.init()
+SCREEN_WIDTH = 1500
+SCREEN_HEIGHT = 900
 
 # Set up the window with a larger size
 screen = pygame.display.set_mode((1500, 900))
@@ -26,7 +28,7 @@ width = 300
 height = 300
 # Make the player and enemy
 player = Player("player.png", 164, 558, width, height)
-enemy = Enemy("enemy.png", 100, 100, width, height)
+enemy = Enemy("enemy.png", 0, 558, 250, 250)
 
 # Start the game loop
 while True:
@@ -85,6 +87,19 @@ while True:
 
     # Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x)
+
+    if (abs(player.x - enemy.x) < 14):
+        if (abs(player.y - enemy.y) < 14):
+            player.health -= 10
+            if (enemy.x == 0):
+                player.x = SCREEN_WIDTH
+            elif(enemy.x == SCREEN_WIDTH):
+                player.x = 0
+            else:
+                player.x = 0
     enemy.backOnScreen(screen, enemy.x)
+    if (player.health < 0):
+        quit()
+
     # Update the display
     pygame.display.update()
