@@ -1,5 +1,6 @@
 import pygame
 import math
+
 class Player:
     def __init__(self, image, x, y, width, height):
         self.image = pygame.image.load(image)
@@ -14,16 +15,18 @@ class Player:
         self.health = 100
         self.BroadCastKill = False
         self.win = 0
+        self.hit_count = 0  # Track the number of hits
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
-    def kill(self, x, y, screen, enx, eny, enh):
+    def kill(self, x, y, screen, enemy):
         radius = 140
         pygame.draw.circle(screen, (255, 0, 0), (x, y), radius, 10)
-        distance = math.sqrt((x - enx) ** 2 + (y - eny) ** 2)
+        distance = math.sqrt((x - enemy.x) ** 2 + (y - enemy.y) ** 2)
         if distance < radius:
-            if enh <= 0:
+            self.hit_count += 1
+            if self.hit_count >= 3:
                 self.BroadCastKill = True
-            enh -= 34
-            self.health -= 1
+                return True  # Indicate that the enemy is killed
+        return False  # Indicate that the enemy is not killed

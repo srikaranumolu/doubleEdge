@@ -30,11 +30,11 @@ height = 300
 player = Player("player.png", 164, 558, width, height)
 enemy = Enemy("enemy.png", SCREEN_WIDTH, 558, 250, 250)
 
-    # Start the game loop
+# Start the game loop
 # Variable to control jump height
 jump_height = 8
 
-#control kill time
+# Control kill time
 kill_cooldown = 2
 last_kill_time = 0
 
@@ -59,16 +59,22 @@ while True:
 
     # Add the player and enemy onto the screen
     player.draw(screen)
-    if(player.BroadCastKill == True):
-        player.win = player.win+1
+    if player.BroadCastKill:
+        player.win += 1
         enemy.x = SCREEN_WIDTH
-        if(player.win == 5):
-            print("WINNER")
-            quit()
+        if player.win == 5:
+            screen.fill((0, 0, 0))  # Fill the screen with black
+            font = pygame.font.SysFont(None, 75)
+            text = font.render("YOU LOST", True, (255, 255, 255))
+            screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, SCREEN_HEIGHT // 2 - text.get_height() // 2))
+            pygame.display.update()
+            pygame.time.delay(3000)  # Display the message for 3 seconds
+            pygame.quit()
+            sys.exit()
     enemy.draw(screen)
 
     # Draw the health bar
-    draw_health_bar(screen,  20, 830, player.health, 100)
+    draw_health_bar(screen, 20, 830, player.health, 100)
 
     # Check for events to see if the player wants to quit
     for event in pygame.event.get():
@@ -129,22 +135,27 @@ while True:
     # Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x, enemy.speed)
 
-    if (abs(player.x - enemy.x) < 20):
-        if (abs(player.y - enemy.y) < 20):
+    if abs(player.x - enemy.x) < 20:
+        if abs(player.y - enemy.y) < 20:
             player.health -= 10
-            if (enemy.x < 200):
+            if enemy.x < 200:
                 player.x = SCREEN_WIDTH
-            elif(enemy.x-200 > SCREEN_WIDTH):
+            elif enemy.x - 200 > SCREEN_WIDTH:
                 player.x = 0
             else:
                 player.x = 0
 
     enemy.backOnScreen(screen, enemy.x)
-    if (player.health < 10):
+    if player.health < 10:
         quit()
 
-    # Update the display
-    if keys[K_SPACE] and (current_time - last_kill_time) > kill_cooldown:
-        player.kill(player.x + 150, player.y + 120, screen, enemy.x, enemy.y, enemy.health)
+    # Check for kill action with cooldown
+    if keys[K_SPACE] and (current_time - last_kill_time) > 0:
+        if player.kill(player.x + 150, player.y + 120, screen, enemy):
+            enemy.x = SCREEN_WIDTH  # Reset enemy position or handle enemy removal
+            enemy.health = 100  # Reset enemy health
+            player.hit_count = 0  # Reset hit count
+        last_kill_time = current_time  # Update last kill time
 
+    # Update the display
     pygame.display.update()
