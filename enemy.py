@@ -8,17 +8,18 @@ class Enemy:
         self.y = y
         self.velocity_y = 0
         self.is_jumping = False
+        self.speed = 1
 
 
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
-    def moveTowardPlayer(self,xen,xpy):
+    def moveTowardPlayer(self,xen,xpy,speed):
         if (xen> xpy):
-            self.x -= 1
+            self.x -= speed
 
         if (xen < xpy):
-            self.x += 1
+            self.x += speed
 
     def backOnScreen(self,screen,x):
         if(x < 0):

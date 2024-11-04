@@ -21,4 +21,6 @@ class Player:
         pygame.draw.circle(screen, (255,0,0), (x,y), 140,10)
         if(abs(x -enx) < 30 or abs(y -eny) < 30):
             self.BroadCastKill = True
-        pygame.time.delay(20)
+            self.health -= 5
+            pygame.time.delay(200)
+
