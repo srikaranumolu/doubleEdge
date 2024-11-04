@@ -25,5 +25,5 @@ class Player:
         if distance < radius:
             if enh <= 0:
                 self.BroadCastKill = True
-            enh -= 10
-            self.health -= 5
+            enh -= 34
+            self.health -= 1
