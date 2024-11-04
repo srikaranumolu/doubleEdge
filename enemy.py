@@ -14,13 +14,10 @@ class Enemy:
         screen.blit(self.image, (self.x, self.y))
 
     def moveTowardPlayer(self,xen,xpy):
-
         if (xen> xpy):
-            self.x -= 3
+            self.x -= 1
         if (xen < xpy):
-            self.x += 3
-        if (xen == xpy):
-            print("hi")
+            self.x += 1
 
     def collision(self, player):
         if (self.x < player.x + player.image.get_width() and

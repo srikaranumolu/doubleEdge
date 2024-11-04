@@ -37,9 +37,9 @@ while True:
     #Check for key presses to move the player
     keys = pygame.key.get_pressed()
     if keys[K_LEFT]:
-        player.x -= 8
+        player.x -= 7
     if keys[K_RIGHT]:
-        player.x += 8
+        player.x += 7
 
     #Add cooldown to jump
     current_time = time.time()
