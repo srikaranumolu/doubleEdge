@@ -1,6 +1,8 @@
 # import pygame module in this program
 import pygame
-from pygame import K_ESCAPE, KEYDOWN
+
+from pygame import *
+
 
 # activate the pygame library .
 # initiate pygame and give permission
@@ -38,17 +40,19 @@ class Enemy:
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
+    def moveTowardPlayer(self,xen,xpy):
+        if (xen> xpy):
+            self.x -= 25
+        if (xen < xpy):
+            self.x += 25
+    def enemyPlayerCollision(self,):
 
 enemy = Enemy("enemy.png", 100, 100, 50, 50)
 # draw a polygon using draw.polygon()
 # method of pygame.
 # pygame.draw.polygon(surface, color, pointlist, thickness)
 # thickness of line parameter is optional.
-def moveTowardPlayer(xenemy,xplayer):
-  if(xenemy > xplayer):
-      xenemy = xenemy-50
-  if(xenemy < xplayer):
-      xenemy = xenemy+50
+
 
 
 
@@ -81,8 +85,11 @@ while True:
 
 
         # Draws the surface object to the screen.
+        enemy.moveTowardPlayer(enemy.x, 400)
+        pygame.time.delay(100)
+        display_surface.fill((0, 0, 0))
         enemy.draw(display_surface)
-        moveTowardPlayer(enemy.x,400)
+
         pygame.display.update()
 
 
