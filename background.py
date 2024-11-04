@@ -21,6 +21,7 @@ bg_height = bg.get_height()
 # Define game variables
 scroll = 0
 tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
+Player = Player("player.png", SCREEN_WIDTH/2, -100, 100, 100)
 
 
 # Game loop
@@ -44,7 +45,7 @@ while run:
         screen.blit(bg, (i * bg_width + scroll, 0))
 
     # Draw player (for simplicity, a rectangle representing the player)
-    pygame.draw.rect(screen, (0, 255, 0), (SCREEN_WIDTH / 2, Player.y, 50, 50))
+    Player.draw(screen)
 
     # Event handler
     for event in pygame.event.get():
