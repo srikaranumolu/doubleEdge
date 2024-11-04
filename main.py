@@ -54,8 +54,11 @@ while True:
 
     # Add the player and enemy onto the screen
     player.draw(screen)
-    if(player.BroadCastKill == False):
-        enemy.draw(screen)
+    if(player.BroadCastKill == True):
+        enemy.speed +=2
+    enemy.draw(screen)
+
+
 
     # Draw the health bar
     draw_health_bar(screen,  20, 830, player.health, 90)
@@ -112,7 +115,7 @@ while True:
         player.mass = 1
 
     # Make the enemy move towards the player
-    enemy.moveTowardPlayer(enemy.x, player.x)
+    enemy.moveTowardPlayer(enemy.x, player.x, enemy.speed)
 
     if (abs(player.x - enemy.x) < 20):
         if (abs(player.y - enemy.y) < 20):
@@ -125,7 +128,7 @@ while True:
                 player.x = 0
 
     enemy.backOnScreen(screen, enemy.x)
-    if (player.health < 0):
+    if (player.health < 10):
         quit()
 
     # Update the display
