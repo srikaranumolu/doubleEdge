@@ -60,7 +60,11 @@ while True:
     # Add the player and enemy onto the screen
     player.draw(screen)
     if(player.BroadCastKill == True):
-        enemy.speed +=2
+        player.win = player.win+1
+        enemy.x = SCREEN_WIDTH
+        if(player.win == 5):
+            print("WINNER")
+            quit()
     enemy.draw(screen)
 
     # Draw the health bar
@@ -141,7 +145,6 @@ while True:
 
     # Update the display
     if keys[K_SPACE] and (current_time - last_kill_time) > kill_cooldown:
-        player.kill(player.x+150,player.y+120,screen,enemy.x,enemy.y)
-        last_kill_time = current_time
+        player.kill(player.x + 150, player.y + 120, screen, enemy.x, enemy.y, enemy.health)
 
     pygame.display.update()

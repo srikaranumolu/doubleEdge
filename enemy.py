@@ -8,7 +8,8 @@ class Enemy:
         self.y = y
         self.velocity_y = 0
         self.is_jumping = False
-        self.speed = 1
+        self.speed = 4
+        self.health = 100
 
 
     def draw(self, screen):
