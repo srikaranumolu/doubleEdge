@@ -8,7 +8,7 @@ class Enemy:
         self.y = y
         self.velocity_y = 0
         self.is_jumping = False
-        self.speed = 4
+        self.speed = 2
         self.health = 100
 
 
