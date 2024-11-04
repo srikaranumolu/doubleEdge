@@ -15,7 +15,15 @@ class Enemy:
 
     def moveTowardPlayer(self,xen,xpy):
         if (xen> xpy):
-            self.x -= 3
+            self.x -= 5
         if (xen < xpy):
-            self.x += 3
+            self.x += 5
+
+    def collision(self, player):
+        if (self.x < player.x + player.image.get_width() and
+            self.x + self.image.get_width() > player.x and
+            self.y < player.y + player.image.get_height() and
+            self.y + self.image.get_height() > player.y):
+            return True
+
 
