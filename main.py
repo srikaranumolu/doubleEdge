@@ -133,6 +133,6 @@ while True:
 
     # Update the display
     if keys[K_SPACE]:
-        player.kill(player.x+1500,player.y+120,screen,enemy.x,enemy.y)
+        player.kill(player.x+150,player.y+120,screen,enemy.x,enemy.y)
 
     pygame.display.update()
