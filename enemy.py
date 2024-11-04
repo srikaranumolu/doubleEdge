@@ -20,8 +20,10 @@ class Enemy:
             self.x += 1
         if(xen == xpy):
             print("hi")
-    def backOnScreen(self,screen,x,y):
+    def backOnScreen(self,screen,x):
         if(x < 0):
+            self.x = screen.get_width()
+        elif(x > screen.get_width()):
             self.x = 0
 
 
