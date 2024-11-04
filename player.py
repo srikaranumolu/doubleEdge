@@ -15,7 +15,7 @@ class Player:
         self.x = x
         self.y = y
         self.og = y
-        self.velocity_y = 7
+        self.velocity_y = 6
         self.is_jump = False
         self.mass = 1
         self.last_time = 0
@@ -23,9 +23,10 @@ class Player:
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
+x = 200
+y = 200
 
-
-player = Player("player.png", 100, 100, 100, 100)
+player = Player("player.png", x, y, 100, 100)
 
 while True:
     screen.fill((0, 0, 0))
@@ -54,9 +55,9 @@ while True:
         player.velocity_y-=0.5
         if player.velocity_y < 0:
             player.mass = -1
-        if player.velocity_y == -8:
+        if player.velocity_y == -7:
             player.is_jump = False
-            player.velocity_y = 7
+            player.velocity_y = 6
             player.mass = 1
             player.y = player.og
 
