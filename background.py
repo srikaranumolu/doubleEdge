@@ -2,6 +2,7 @@ import pygame
 import math
 from player import Player
 from enemy import Enemy
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -14,14 +15,14 @@ SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load image
-bg = pygame.image.load("bg.png").convert()
+bg = pygame.image.load("nbg.jpg").convert()
 bg_width = bg.get_width()
 bg_height = bg.get_height()
 
 # Define game variables
 scroll = 0
 tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
-Player = Player("player.png", SCREEN_WIDTH/2, -100, 100, 100)
+Player = Player("player.png", SCREEN_WIDTH/2, 500, 100, 100)
 
 
 # Game loop
