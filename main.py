@@ -12,23 +12,35 @@ SCREEN_WIDTH = 1500
 SCREEN_HEIGHT = 900
 
 # Set up the window with a larger size
-screen = pygame.display.set_mode((1500, 900))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("DoubleEdge Sword")
 
 # Load and scale background image to fill the screen
 bg = pygame.image.load("bg.jpg").convert()
-bg = pygame.transform.scale(bg, (1500, 900))
+bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 bg_width = bg.get_width()
 bg_height = bg.get_height()
 
 # Make background variables
 scroll = 0
-tiles = math.ceil(1500 / bg_width) + 1
+tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
 width = 300
 height = 300
 # Make the player and enemy
 player = Player("player.png", 164, 558, width, height)
 enemy = Enemy("enemy.png", 0, 558, 250, 250)
+
+# Variable to control jump height
+jump_height = 8
+
+def draw_health_bar(screen, x, y, health, max_health):
+    bar_width = 200
+    bar_height = 20
+    fill = (health / max_health) * bar_width
+    outline_rect = pygame.Rect(x, y, bar_width, bar_height)
+    fill_rect = pygame.Rect(x, y, fill, bar_height)
+    pygame.draw.rect(screen, (255, 0, 0), fill_rect)
+    pygame.draw.rect(screen, (0, 0, 0), outline_rect, 2)
 
 # Start the game loop
 while True:
@@ -44,6 +56,9 @@ while True:
     player.draw(screen)
     enemy.draw(screen)
 
+    # Draw the health bar
+    draw_health_bar(screen,  20, 830, player.health, 90)
+
     # Check for events to see if the player wants to quit
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -58,9 +73,9 @@ while True:
     keys = pygame.key.get_pressed()
     previous_x = player.x  # Store the player's previous x position
     if keys[K_LEFT]:
-        player.x -= 7
+        player.x -= 5
     if keys[K_RIGHT]:
-        player.x += 7
+        player.x += 5
 
     # Update scroll based on player position change
     dx = player.x - previous_x  # Difference in player position
@@ -72,18 +87,27 @@ while True:
     if not player.is_jump and keys[K_UP] and (current_time - player.last_time) > 1:
        player.is_jump = True
        player.last_time = current_time
+       player.velocity_y = jump_height  # Set initial jump velocity to jump_height
+
     # Logic to change how the player jumps
     if player.is_jump:
         F = (1/2) * player.mass * (player.velocity_y ** 2)
         player.y -= F
-        player.velocity_y -= 0.5
+        player.velocity_y -= 0.3  # Decrease the rate of change for smoother animation
         if player.velocity_y < 0:
             player.mass = -1
-        if player.velocity_y == -7:
+        if player.velocity_y <= -jump_height:  # Use jump_height variable
             player.is_jump = False
-            player.velocity_y = 6
+            player.velocity_y = jump_height  # Reset to jump_height
             player.mass = 1
-            player.y = player.og
+            player.y = player.og  # Reset to original ground level
+
+    # Ensure the player stays on the ground
+    if player.y > player.og:
+        player.y = player.og
+        player.is_jump = False
+        player.velocity_y = jump_height  # Reset to jump_height
+        player.mass = 1
 
     # Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x)
@@ -97,6 +121,7 @@ while True:
                 player.x = 0
             else:
                 player.x = 0
+
     enemy.backOnScreen(screen, enemy.x)
     if (player.health < 0):
         quit()

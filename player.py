@@ -7,11 +7,12 @@ class Player:
         self.x = x
         self.y = y
         self.og = y
-        self.velocity_y = 6
+        self.velocity_y = 8
         self.is_jump = False
         self.mass = 1
         self.last_time = 0
-        self.health = 100
+        self.health = 90
+
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
