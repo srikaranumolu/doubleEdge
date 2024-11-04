@@ -15,7 +15,7 @@ class Enemy:
 
     def moveTowardPlayer(self,xen,xpy):
         if (xen> xpy):
-            self.x -= 25
+            self.x -= 3
         if (xen < xpy):
-            self.x += 25
+            self.x += 3
 
