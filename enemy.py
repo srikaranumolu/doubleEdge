@@ -16,29 +16,42 @@ green = (0, 255, 0)
 blue = (0, 0, 128)
 black = (0, 0, 0)
 red = (255, 0, 0)
-
 # assigning values to X and Y variable
-X = 0
-Y = 0
 
 # create the display surface object
 # of specific dimension..e(X,Y).
-display_surface = pygame.display.set_mode((X, Y),pygame.FULLSCREEN)
+display_surface = pygame.display.set_mode((0, 0),pygame.FULLSCREEN)
 
 # set the pygame window name
 pygame.display.set_caption('DoubleEdge Sword')
-
-# completely fill the surface object
-# with white colour
 display_surface.fill(blue)
-enemyImage = pygame.image.load(r"enemy.png").convert_alpha()
-enemy = pygame.transform.scale(enemyImage, (100,100))
+class Enemy:
+    def __init__(self, image, x, y, width, height):
+        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.x = x
+        self.y = y
+        self.velocity_y = 0
+        self.is_jumping = False
 
-display_surface.blit(enemy, (0, 0))
+
+    def draw(self, screen):
+        screen.blit(self.image, (self.x, self.y))
+
+
+enemy = Enemy("enemy.png", 100, 100, 50, 50)
 # draw a polygon using draw.polygon()
 # method of pygame.
 # pygame.draw.polygon(surface, color, pointlist, thickness)
 # thickness of line parameter is optional.
+def moveTowardPlayer(xenemy,xplayer):
+  if(xenemy > xplayer):
+      xenemy = xenemy-50
+  if(xenemy < xplayer):
+      xenemy = xenemy+50
+
+
+
 
 # infinite loop
 while True:
@@ -64,7 +77,12 @@ while True:
                 # quit the program.
                 quit()
 
+
+
+
         # Draws the surface object to the screen.
-        pygame.display.update();
-        if()
+        enemy.draw(display_surface)
+        moveTowardPlayer(enemy.x,400)
+        pygame.display.update()
+
 
