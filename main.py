@@ -28,8 +28,9 @@ width = 300
 height = 300
 # Make the player and enemy
 player = Player("player.png", 164, 558, width, height)
-enemy = Enemy("enemy.png", 0, 558, 250, 250)
+enemy = Enemy("enemy.png", SCREEN_WIDTH, 558, 250, 250)
 
+    # Start the game loop
 # Variable to control jump height
 jump_height = 8
 
@@ -42,7 +43,6 @@ def draw_health_bar(screen, x, y, health, max_health):
     pygame.draw.rect(screen, (255, 0, 0), fill_rect)
     pygame.draw.rect(screen, (0, 0, 0), outline_rect, 2)
 
-# Start the game loop
 while True:
     # Control frame rate
     pygame.time.delay(5)
@@ -54,7 +54,8 @@ while True:
 
     # Add the player and enemy onto the screen
     player.draw(screen)
-    enemy.draw(screen)
+    if(player.BroadCastKill == False):
+        enemy.draw(screen)
 
     # Draw the health bar
     draw_health_bar(screen,  20, 830, player.health, 90)
@@ -72,6 +73,7 @@ while True:
     # Check for key presses to move the player
     keys = pygame.key.get_pressed()
     previous_x = player.x  # Store the player's previous x position
+
     if keys[K_LEFT]:
         player.x -= 5
     if keys[K_RIGHT]:
@@ -112,12 +114,12 @@ while True:
     # Make the enemy move towards the player
     enemy.moveTowardPlayer(enemy.x, player.x)
 
-    if (abs(player.x - enemy.x) < 14):
-        if (abs(player.y - enemy.y) < 14):
+    if (abs(player.x - enemy.x) < 20):
+        if (abs(player.y - enemy.y) < 20):
             player.health -= 10
-            if (enemy.x == 0):
+            if (enemy.x < 200):
                 player.x = SCREEN_WIDTH
-            elif(enemy.x == SCREEN_WIDTH):
+            elif(enemy.x-200 > SCREEN_WIDTH):
                 player.x = 0
             else:
                 player.x = 0
@@ -127,4 +129,7 @@ while True:
         quit()
 
     # Update the display
+    if keys[K_SPACE]:
+        player.kill(player.x+150,player.y+120,screen,enemy.x,enemy.y)
+
     pygame.display.update()
