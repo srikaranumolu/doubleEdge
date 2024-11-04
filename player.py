@@ -15,3 +15,7 @@ class Player:
     def draw(self, screen):
         screen.blit(self.image, (self.x, self.y))
 
+
+    def kill(self,x,y,screen):
+        pygame.draw.circle(screen, (255,0,0), (x,y), 100,10)
+        pygame.time.delay(2000)

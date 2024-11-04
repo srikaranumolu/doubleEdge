@@ -57,8 +57,10 @@ while True:
     # Check for key presses to move the player
     keys = pygame.key.get_pressed()
     previous_x = player.x  # Store the player's previous x position
+
     if keys[K_LEFT]:
         player.x -= 7
+
     if keys[K_RIGHT]:
         player.x += 7
 
@@ -91,9 +93,9 @@ while True:
     if (abs(player.x - enemy.x) < 14):
         if (abs(player.y - enemy.y) < 14):
             player.health -= 10
-            if (enemy.x == 0):
+            if (enemy.x < 200):
                 player.x = SCREEN_WIDTH
-            elif(enemy.x == SCREEN_WIDTH):
+            elif(enemy.x-200 > SCREEN_WIDTH):
                 player.x = 0
             else:
                 player.x = 0
@@ -102,4 +104,7 @@ while True:
         quit()
 
     # Update the display
+    if keys[K_SPACE]:
+        player.kill(player.x,player.y,screen)
+
     pygame.display.update()
