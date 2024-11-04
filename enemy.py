@@ -1,5 +1,4 @@
 import pygame
-
 class Enemy:
     def __init__(self, image, x, y, width, height):
         self.image = pygame.image.load(image)
@@ -18,3 +17,6 @@ class Enemy:
             self.x -= 25
         if (xen < xpy):
             self.x += 25
+    def Collision(self,playerx,playery,enemyx,enemyy):
+
+
