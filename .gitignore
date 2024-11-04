@@ -1,7 +1,0 @@
-# Ignore .idea directory
-.idea/
-
-# Ignore .gitattributes file
-.gitattributes
-# Ignore doubleEdge/.ide file
-doubleEdge/.idea
