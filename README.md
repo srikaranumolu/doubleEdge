@@ -10,3 +10,5 @@ Move Left : Left Arrow Key
 Jump : Up Arrow Key
 
 Shoot Skeleton: Spacebar
+
+By: Sayuon Biju, Srikar Anumolu, Anish Dhore
