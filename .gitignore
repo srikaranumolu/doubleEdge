@@ -3,6 +3,5 @@
 
 # Ignore .gitattributes file
 .gitattributes
-
 # Ignore doubleEdge/.ide file
-doubleEdge/.ide
+doubleEdge/.idea
